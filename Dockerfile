@@ -26,10 +26,13 @@ RUN chmod +x /app/heroku/perl-build
 RUN /app/heroku/perl-build $PERL_VERSION /app/perl/perl-$PERL_VERSION
 RUN curl -sL http://cpanmin.us/ | /app/perl/perl-$PERL_VERSION/bin/perl - --notest App::cpanminus Carton
 
+RUN echo "export PATH=\"/app/perl/perl-5.20.1/bin:\$PATH\"" > /app/.profile.d/perl.sh
+RUN echo "cd /app/src" >> /app/.profile.d/perl.sh
+
 COPY cpanfile /app/src/
 
 RUN carton install
 
-ONBUILD COPY . /app/src
+COPY . /app/src
 
-ONBUILD EXPOSE 3000
+EXPOSE 3000

@@ -1,1 +1,1 @@
-web: carton exec -- plackup -E production -s Starlet -p 3000
+web: carton exec -- plackup -E production -s Starlet -p $PORT
